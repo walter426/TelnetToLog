@@ -1,0 +1,12 @@
+csh
+#:
+2;0
+statdc
+> 
+2;0
+tdrop 3, 'CELLID'
+>
+2;0
+go
+(return status = 0)\r\n1> 
+30;1
