@@ -35,12 +35,14 @@ def TelnetToLogFromTemplate_batch(log_dir_path, template_dir_path):
     log_list_file = open(log_list_path, 'r')
     idx = 0
      
-    for Cell_ID in log_list_file:
+    for ArgList in log_list_file:
         idx += 1
-        Cell_ID = Cell_ID.strip("\n")
+        str_ArgList = ArgList.strip("\n")
+        ArgList = str_ArgList.split(",")
         
-        #if Cell_ID.isdigit() == False:
-        #    continue
+        for arg_idx in range(len(ArgList)):
+            ArgList[arg_idx] = ArgList[arg_idx].strip().rstrip()
+            
         
         #Create cmd file from the template
         cmd_path_group = []
@@ -51,16 +53,18 @@ def TelnetToLogFromTemplate_batch(log_dir_path, template_dir_path):
             
             template_name = template_path.rsplit('.', 1)
             template_name = template_name[0]
-            
-            cmd_path = os.path.join(log_dir_path, str(idx).zfill(3)+ "_" + Cell_ID + "_" + template_name + ".txt")
+
+            cmd_path = os.path.join(log_dir_path, str(idx).zfill(3)+ "_" + "_".join(ArgList) + "_" + template_name + ".txt")
             cmd_path_group.append(cmd_path)
             
             cmd_file = open(cmd_path, 'w')
             
             for line in template_file:
-                line = line.replace("CELLID", str(Cell_ID))
+                for arg_idx in range(len(ArgList)):
+                    line = line.replace("arg" + str(arg_idx), str(ArgList[arg_idx]))
+                    
                 cmd_file.write(line)
-            
+
             cmd_file.close()
             
             process_group.append(subprocess.Popen(os.getcwd() + "\TelnetToLog.py " + cmd_path + " -NoScreen", shell = True)) 
@@ -73,7 +77,7 @@ def TelnetToLogFromTemplate_batch(log_dir_path, template_dir_path):
         for cmd_path in cmd_path_group:
             os.remove(cmd_path)
             
-        print Cell_ID + " done!"
+        print str_ArgList + " done!"
             
 if __name__ == "__main__":
     if len(sys.argv) != 3:

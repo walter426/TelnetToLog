@@ -4,7 +4,7 @@ csh
 statdc
 > 
 2;0
-c 2, 'CELLID'
+c 2, 'arg_0'
 >
 2;0
 go

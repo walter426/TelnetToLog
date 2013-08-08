@@ -4,7 +4,7 @@ csh
 statdc
 > 
 2;0
-tdrop 2, 'arg_0'
+euld 30, 'arg_0'
 >
 2;0
 go
