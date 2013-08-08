@@ -4,7 +4,7 @@ csh
 statdc
 > 
 2;0
-nprd 30, 'arg_0', 'arg_1'
+nprd 200, 'arg_0', 'arg_1'
 >
 2;0
 go

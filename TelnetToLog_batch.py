@@ -61,8 +61,8 @@ def TelnetToLogFromTemplate_batch(log_dir_path, template_dir_path):
             
             for line in template_file:
                 for arg_idx in range(len(ArgList)):
-                    line = line.replace("arg" + str(arg_idx), str(ArgList[arg_idx]))
-                    
+                    line = line.replace("arg_" + str(arg_idx), str(ArgList[arg_idx]))
+   
                 cmd_file.write(line)
 
             cmd_file.close()
